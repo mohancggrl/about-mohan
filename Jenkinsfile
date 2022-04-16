@@ -5,7 +5,7 @@ pipeline {
 	tools {
 		maven 'maven4'
 	}
-	parameters {
+//	parameters {
 //		choice (
 //			choices: ['false', 'true'], 
 //			description: 'Run CI Job', 
