@@ -6,48 +6,54 @@ pipeline {
 		maven 'maven4'
 	}
 	parameters {
-		choice (
-			choices: ['false', 'true'], 
-			description: 'Run CI Job', 
-			name: 'ci'
-			)
-		choice (
-			choices: ['false', 'true'], 
-			description: 'Run cd Job', 
-			name: 'cd'
-			)
-			
-//		 string (
-//			name: 'version', 
-//			defaultValue: '9.0.0', 
-//			description: 'deploy specified version'
+//		choice (
+//			choices: ['false', 'true'], 
+//			description: 'Run CI Job', 
+//			name: 'ci'
 //			)
+//		choice (
+//			choices: ['false', 'true'], 
+//			description: 'Run cd Job', 
+//			name: 'cd'
+//			)			
 	}
 	environment {
 		pom = readMavenPom file: 'pom.xml'
 		version = "${pom.version}"
 		artifactId = "${pom.artifactId}"
+		env_config_id = "abou-mohan"
+		ci = "true"
+		cd = "true"
   	}
 	stages {
-//		stage('git_checkout') {
-//			steps {
-//				git credentialsId: 'git', url: 'https://github.com/mohancggrl/hello-world-war.git'
-//			}
-//		}
+		stage('load env vars') {
+			steps {
+				script {
+					configFileProvider([configFile(fileId: "${env_config_id}", targetLocation: 'env.groovy')]) {	
+					load 'env.groovy'
+					}
+				}
+			}
+		}
+
 		stage('sonar') {
 		when {
-                	expression {ci == 'true'}
-            	}
+            	expression {ci == 'true'}
+            }
 			steps {
-				sh 'mvn clean install  sonar:sonar -Dsonar.host.url=http://3.83.230.109:9000/  -Dsonar.login=525226d75595e2802bcc44f4ace096ad7d616bb4'
+				withCredentials([string(credentialsId: "${sonar_id}", variable: 'sonar_token')]) {
+				sh "mvn clean install  sonar:sonar -Dsonar.host.url=${sona_url}  -Dsonar.login=${sonar_token}"
+				}
 			}
 		}
 		stage('build & deploy') {
 		when {
-                	expression {ci == 'true'}
-            	}
+                expression {ci == 'true'}
+            }
 			steps {
-				sh 'mvn clean deploy'
+				withCredentials([usernamePassword(credentialsId: 'nexus_mohan', passwordVariable: 'nexus_passwd', usernameVariable: 'nexus_usr')]) {
+				sh 'mvn clean deploy -s settings.xml'
+				}
 			}
 		}
 		stage('deploy') {
@@ -64,12 +70,12 @@ pipeline {
 					extensions: [], 
 					userRemoteConfigs: [
 					[
-						credentialsId: 'git', 
-						url: 'https://github.com/mohancggrl/devops_deploy.git'
+						credentialsId: "${git_cred_id}", 
+						url: "${deploy_git}"
 					]
 					]
 				])
-				sh 'ansible-playbook -i inventory.yml deploy.yml -e version=$version -e artifactId=$artifactId'
+				sh 'ansible-playbook -i inventory.yml deploy.yml -e version=$version -e artifactId=$artifactId -e artifactory_url=$artifactory_url'
 			}
 		}
 	}
