@@ -75,7 +75,7 @@ pipeline {
 					]
 					]
 				])
-				sh 'ansible-playbook -i inventory.yml deploy.yml -e version=$version -e artifactId=$artifactId -e artifactory_url=$artifactory_url'
+				sh 'ansible-playbook -i inventory.yml deploy.yml -e version=$version -e artifactId=$artifactId -e artifactory_url=$artifactory_url -e arti_path=$arti_path'
 			}
 		}
 	}
