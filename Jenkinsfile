@@ -51,7 +51,7 @@ pipeline {
                 expression {ci == 'true'}
             }
 			steps {
-				withCredentials([usernamePassword(credentialsId: 'nexus', passwordVariable: 'nexus_passwd', usernameVariable: 'nexus_usr')]) {
+				withCredentials([usernamePassword(credentialsId: 'nexus', passwordVariable: 'nexus_passwd', usernameVariable: 'nexus_user')]) {
 				sh "mvn clean deploy -s settings.xml"
 				}
 			}
