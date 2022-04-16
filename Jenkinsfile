@@ -52,7 +52,7 @@ pipeline {
             }
 			steps {
 				withCredentials([usernamePassword(credentialsId: 'nexus_mohan', passwordVariable: 'nexus_passwd', usernameVariable: 'nexus_usr')]) {
-				sh 'mvn clean deploy -s settings.xml'
+				sh "mvn clean deploy -s settings.xml"
 				}
 			}
 		}
