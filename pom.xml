@@ -29,7 +29,7 @@
         <repository>
         <id>nexus</id>
         <name>about-mohan</name>
-        <url>http://54.221.5.10:8081/repository/about-mohan/</url>
+        <url>http://54.221.5.10:8081/repository/about-mahii/</url>
         </repository>
         </distributionManagement>
 	</project>
