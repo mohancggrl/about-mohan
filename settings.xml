@@ -8,9 +8,7 @@ regarding copyright ownership.  The ASF licenses this file
 to you under the Apache License, Version 2.0 (the
 "License"); you may not use this file except in compliance
 with the License.  You may obtain a copy of the License at
-
     http://www.apache.org/licenses/LICENSE-2.0
-
 Unless required by applicable law or agreed to in writing,
 software distributed under the License is distributed on an
 "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -45,7 +43,7 @@ under the License.
  |-->
 <settings xmlns="http://maven.apache.org/SETTINGS/1.2.0"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.2.0 https://maven.apache.org/xsd/settings-1.2.0.xsd">
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.2.0 http://maven.apache.org/xsd/settings-1.2.0.xsd">
   <!-- localRepository
    | The path to the local repository maven will use to store artifacts.
    |
@@ -115,13 +113,14 @@ under the License.
      |
      | NOTE: You should either specify username/password OR privateKey/passphrase, since these pairings are
      |       used together.
-     |-->
+     | -->
     <server>
       <id>nexus</id>
       <username>${nexus_user}</username>
-      <password>${nexus_passwd]}</password>
+      <password>${nexus_passwd}</password>
     </server>
-    
+
+
     <!-- Another sample, using keys to authenticate.
     <server>
       <id>siteServer</id>
@@ -163,7 +162,6 @@ under the License.
       <blocked>true</blocked>
     </mirror>
   </mirrors>
-
   <!-- profiles
    | This is a list of profiles which can be activated in a variety of ways, and which can modify
    | the build process. Profiles provided in the settings.xml are intended to provide local machine-
@@ -199,11 +197,9 @@ under the License.
      | This profile example uses the JDK version to trigger activation, and provides a JDK-specific repo.
     <profile>
       <id>jdk-1.4</id>
-
       <activation>
         <jdk>1.4</jdk>
       </activation>
-
       <repositories>
         <repository>
           <id>jdk14</id>
@@ -237,14 +233,12 @@ under the License.
      |
     <profile>
       <id>env-dev</id>
-
       <activation>
         <property>
           <name>target-env</name>
           <value>dev</value>
         </property>
       </activation>
-
       <properties>
         <tomcatPath>/path/to/tomcat/instance</tomcatPath>
       </properties>
@@ -260,4 +254,4 @@ under the License.
     <activeProfile>anotherAlwaysActiveProfile</activeProfile>
   </activeProfiles>
   -->
-</settings>
+</settings> 
