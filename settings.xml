@@ -118,7 +118,7 @@ under the License.
      |-->
     <server>
       <id>nexus</id>
-      <username>${nexus_usr}</username>
+      <username>${nexus_user}</username>
       <password>${nexus_passwd]}</password>
     </server>
     
