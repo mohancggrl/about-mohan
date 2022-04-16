@@ -28,7 +28,7 @@
 	<distributionManagement>
         <repository>
         <id>nexus</id>
-        <name>about-mohan</name>
+        <name>about-mahii</name>
         <url>http://54.221.5.10:8081/repository/about-mahii/</url>
         </repository>
         </distributionManagement>
