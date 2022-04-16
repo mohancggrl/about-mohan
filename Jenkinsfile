@@ -16,7 +16,7 @@ pipeline {
 //			description: 'Run cd Job', 
 //			name: 'cd'
 //			)			
-	}
+//	}
 	environment {
 		pom = readMavenPom file: 'pom.xml'
 		version = "${pom.version}"
